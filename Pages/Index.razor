@@ -1,0 +1,53 @@
+﻿@page "/"
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<h4>BabylonJs and Blazor</h4>
+
+<canvas @ref="@CanvasElement" id="renderCanvas" touch-action="none"></canvas>
+<button class="btn btn-primary" @onclick="Show">Show Loading UI</button>
+<button class="btn btn-primary" @onclick="Hide">Hide Loading UI</button>
+<button class="btn btn-primary" @onclick="Walk">Walk</button>
+<button class="btn btn-primary" @onclick="Run">Run</button>
+@code {
+    private ElementReference CanvasElement;
+
+    protected override async Task
+        OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync(
+            "BlazorFunctions.showBabylon",
+            CanvasElement);
+        }
+    }
+
+    private async Task Show()
+    {
+        await JSRuntime.InvokeVoidAsync(
+        "BlazorFunctions.showUI",
+        null);
+    }
+
+    private async Task Hide()
+    {
+        await JSRuntime.InvokeVoidAsync(
+        "BlazorFunctions.hideUI",
+        null);
+    }
+
+    private async Task Walk()
+    {
+        await JSRuntime.InvokeVoidAsync(
+        "BlazorFunctions.walkBabylon",
+        null);
+    }
+
+    private async Task Run()
+    {
+        await JSRuntime.InvokeVoidAsync(
+        "BlazorFunctions.runBabylon",
+        null);
+    }
+}
