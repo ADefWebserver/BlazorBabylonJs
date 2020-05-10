@@ -7,6 +7,7 @@
 <canvas @ref="@CanvasElement" id="renderCanvas" touch-action="none"></canvas>
 <button class="btn btn-primary" @onclick="Show">Show Loading UI</button>
 <button class="btn btn-primary" @onclick="Hide">Hide Loading UI</button>
+<button class="btn btn-primary" @onclick="Idle">Idle</button>
 <button class="btn btn-primary" @onclick="Walk">Walk</button>
 <button class="btn btn-primary" @onclick="Run">Run</button>
 @code {
@@ -34,6 +35,13 @@
     {
         await JSRuntime.InvokeVoidAsync(
         "BlazorFunctions.hideUI",
+        null);
+    }
+
+    private async Task Idle()
+    {
+        await JSRuntime.InvokeVoidAsync(
+        "BlazorFunctions.idleBabylon",
         null);
     }
 
