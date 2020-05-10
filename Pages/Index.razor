@@ -5,11 +5,11 @@
 <h4>BabylonJs and Blazor</h4>
 
 <canvas @ref="@CanvasElement" id="renderCanvas" touch-action="none"></canvas>
-<button class="btn btn-primary" @onclick="Show">Show Loading UI</button>
-<button class="btn btn-primary" @onclick="Hide">Hide Loading UI</button>
-<button class="btn btn-primary" @onclick="Idle">Idle</button>
-<button class="btn btn-primary" @onclick="Walk">Walk</button>
-<button class="btn btn-primary" @onclick="Run">Run</button>
+<button class="btn btn-primary" @onclick="() => InteropDummy3.Show(JSRuntime)">Show Loading UI</button>
+<button class="btn btn-primary" @onclick="() => InteropDummy3.Hide(JSRuntime)">Hide Loading UI</button>
+<button class="btn btn-primary" @onclick="() => InteropDummy3.Idle(JSRuntime)">Idle</button>
+<button class="btn btn-primary" @onclick="() => InteropDummy3.Walk(JSRuntime)">Walk</button>
+<button class="btn btn-primary" @onclick="() => InteropDummy3.Run(JSRuntime)">Run</button>
 @code {
     private ElementReference CanvasElement;
 
@@ -18,44 +18,7 @@
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync(
-            "BlazorFunctions.showBabylon",
-            CanvasElement);
+            await InteropDummy3.ShowBabylon(JSRuntime, CanvasElement);
         }
-    }
-
-    private async Task Show()
-    {
-        await JSRuntime.InvokeVoidAsync(
-        "BlazorFunctions.showUI",
-        null);
-    }
-
-    private async Task Hide()
-    {
-        await JSRuntime.InvokeVoidAsync(
-        "BlazorFunctions.hideUI",
-        null);
-    }
-
-    private async Task Idle()
-    {
-        await JSRuntime.InvokeVoidAsync(
-        "BlazorFunctions.idleBabylon",
-        null);
-    }
-
-    private async Task Walk()
-    {
-        await JSRuntime.InvokeVoidAsync(
-        "BlazorFunctions.walkBabylon",
-        null);
-    }
-
-    private async Task Run()
-    {
-        await JSRuntime.InvokeVoidAsync(
-        "BlazorFunctions.runBabylon",
-        null);
-    }
+    }   
 }
