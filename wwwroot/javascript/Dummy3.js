@@ -4,6 +4,7 @@
     var idleAnim;
     var walkAnim;
     var runAnim;
+    var camera;
 
     window.Dummy3 = {
         showUI: function () {
@@ -35,6 +36,10 @@
             // Synchronize animations
             walkAnim.syncWith(runAnim);
         },
+        cameraBabylon: function (a, b, r) {
+            // alpha, beta, radius
+            camera.setPosition(new BABYLON.Vector3(a, b, r));
+        },
         showBabylon: function (canvas) {
             var sceneToRender = null;
             var createDefaultEngine = function () { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); };
@@ -46,7 +51,7 @@
                 BABYLON.Animation.AllowMatricesInterpolation = true;
                 scene = new BABYLON.Scene(engine);
 
-                var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 3, new BABYLON.Vector3(0, 1, 0), scene);
+                camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 3, new BABYLON.Vector3(0, 1, 0), scene);
                 camera.attachControl(canvas, true);
 
                 camera.lowerRadiusLimit = 2;

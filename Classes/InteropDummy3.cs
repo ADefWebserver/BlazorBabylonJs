@@ -54,5 +54,16 @@ namespace BlazorBabylonJs
             "Dummy3.runBabylon",
             null);
         }
+
+        internal static ValueTask Camera(
+            IJSRuntime jsRuntime,
+            int a,
+            int b,
+            int r)
+        {
+            return jsRuntime.InvokeVoidAsync(
+            "Dummy3.cameraBabylon",
+            a,b,r);
+        }
     }
 }

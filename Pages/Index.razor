@@ -10,8 +10,26 @@
 <button class="btn btn-primary" @onclick="() => InteropDummy3.Idle(JSRuntime)">Idle</button>
 <button class="btn btn-primary" @onclick="() => InteropDummy3.Walk(JSRuntime)">Walk</button>
 <button class="btn btn-primary" @onclick="() => InteropDummy3.Run(JSRuntime)">Run</button>
+<br /><br />
+<div>
+    Camera Alpha:
+    <input type="range" min="-360" max="360" step="1" @bind="CameraA" @bind:event="oninput" @onchange="OnChangeSlider" />
+</div>
+<div>
+    Camera Beta:
+    <input type="range" min="-360" max="360" step="1" @bind="CameraB" @bind:event="oninput" @onchange="OnChangeSlider" />
+</div>
+<div>
+    Camera Radius:
+    <input type="range" min="-360" max="360" step="1" @bind="CameraR" @bind:event="oninput" @onchange="OnChangeSlider" />
+</div>
+
 @code {
     private ElementReference CanvasElement;
+
+    private int CameraA = 200;
+    private int CameraB = 200;
+    private int CameraR = 200;
 
     protected override async Task
         OnAfterRenderAsync(bool firstRender)
@@ -20,5 +38,10 @@
         {
             await InteropDummy3.ShowBabylon(JSRuntime, CanvasElement);
         }
-    }   
+    }
+
+    private void OnChangeSlider(ChangeEventArgs e)
+    {
+        InteropDummy3.Camera(JSRuntime, CameraA, CameraB, CameraR);
+    }
 }
