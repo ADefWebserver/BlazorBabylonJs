@@ -1,0 +1,48 @@
+﻿<div class="col">
+	@*
+		The component is added this way to prevent Blazor behaviour
+		 where it creates the element, then adds the attributes, which
+		 stops this web component from working properly as it gets
+		 initialised before the attributes are there
+	*@
+	<div class="row">
+		@((MarkupString)$@"<babylon-scene id='{ID}' {PrepareStageEvent} {PrepareSceneEvent} {CapturedValues}></babylon-scene>")
+	</div>
+	<div class="row">
+		@ChildContent(ID)
+	</div>
+</div>
+
+@code
+{
+	[Parameter(CaptureUnmatchedValues = true)]
+	public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
+	[Parameter] public RenderFragment<string> ChildContent { get; set; }
+	[Parameter] public string PrepareStage { get; set; }
+	[Parameter] public string PrepareScene { get; set; }
+	[Parameter] public string ID { get; set; } = "babylon";
+
+	private string PrepareStageEvent
+				=> string.IsNullOrWhiteSpace(PrepareStage) ?
+						string.Empty :
+						$"customsetup onwaiting='{PrepareStage}(event)' ";
+
+	private string PrepareSceneEvent
+		=> string.IsNullOrWhiteSpace(PrepareScene) ?
+				string.Empty :
+				$"onplaying='{PrepareScene}(event)' ";
+
+	private string CapturedValues
+		=> (AdditionalAttributes?.Count ?? 0) == 0 ?
+				string.Empty :
+				string.Join(' ',
+					AdditionalAttributes
+					.Where(att
+						=> !(att.Key == "onwaiting" && !string.IsNullOrWhiteSpace(PrepareStage)) &&
+							 !(att.Key == "onplaying" && !string.IsNullOrWhiteSpace(PrepareScene))
+						)
+					.Select(att
+						=> $"{att.Key}='{att.Value}'"
+						)
+					.ToList());
+}
