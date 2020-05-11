@@ -1,0 +1,14 @@
+﻿@page "/"
+<h3>Declarative Babylon</h3>
+<BabylonCanvas ID="babylon5" PrepareStage="prepareStage" PrepareScene="prepareScene">
+		<AnimationButton ElementID="babylon5" Animation="Idle" />
+		<AnimationButton ElementID="babylon5" Animation="Walk" />
+		<AnimationButton ElementID="babylon5" Animation="Run" />
+</BabylonCanvas>
+<pre><code>@($@"<BabylonCanvas PrepareStage=""prepareStage"" PrepareScene=""prepareScene"" Context=""ID"">
+ <AnimationButton ElementID=""@ID"" Animation=""Idle"" />
+ <AnimationButton ElementID=""@ID"" Animation=""Walk"" />
+ <AnimationButton ElementID=""@ID"" Animation=""Run"" />
+</BabylonCanvas>
+")</code></pre>
+

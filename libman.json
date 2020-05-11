@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "babylon-scene@latest",
+      "destination": "wwwroot/lib/babylon-scene/",
+      "files": [
+        "babylonscene.full.js",
+        "babylonscene.nobabylon.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "babylonjs@",
+      "destination": "wwwroot/lib/babylon/"
+    }
+  ]
+}
