@@ -1,0 +1,15 @@
+﻿@code
+{
+		[Parameter] public string MethodName { get; set; } = "setAnimation";
+		[Parameter] public string ElementID { get; set; }
+		[Parameter] public string Animation { get; set; }
+		[Parameter] public decimal Weight { get; set; } = 1.0M;
+		[Parameter] public bool Exclusive { get; set; } = true;
+		[Parameter(CaptureUnmatchedValues = true)]
+		public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; } 
+
+		private string ClickAction
+			=> $"{MethodName}('{ElementID}','{Animation}',{Weight})";
+}
+<button class="btn btn-primary" onclick=@($"{ClickAction}") @attributes="AdditionalAttributes">@Animation</button>
+
