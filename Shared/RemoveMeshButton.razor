@@ -1,0 +1,12 @@
+﻿@code
+{
+		[Parameter] public string MethodName { get; set; } = "removeMesh";
+		[Parameter] public string ElementID { get; set; }
+		[Parameter] public string MeshName { get; set; }
+		[Parameter(CaptureUnmatchedValues = true)]
+		public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; } 
+
+		private string ClickAction
+			=> $"{MethodName}('{ElementID}','{MeshName}')";
+}
+<button class="btn btn-primary" onclick=@($"{ClickAction}") @attributes="AdditionalAttributes">Remove Mesh - @MeshName</button>
