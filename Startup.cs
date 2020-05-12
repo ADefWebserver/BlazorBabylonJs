@@ -51,7 +51,7 @@ namespace BlazorBabylonJs
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host2");
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }

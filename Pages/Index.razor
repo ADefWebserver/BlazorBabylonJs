@@ -1,47 +1,17 @@
-﻿@page "/home"
-@using Microsoft.JSInterop
-@inject IJSRuntime JSRuntime
-
-<h4>BabylonJs and Blazor</h4>
-
-<canvas @ref="@CanvasElement" id="renderCanvas" touch-action="none"></canvas>
-<button class="btn btn-primary" @onclick="() => InteropDummy3.Show(JSRuntime)">Show Loading UI</button>
-<button class="btn btn-primary" @onclick="() => InteropDummy3.Hide(JSRuntime)">Hide Loading UI</button>
-<button class="btn btn-primary" @onclick="() => InteropDummy3.Idle(JSRuntime)">Idle</button>
-<button class="btn btn-primary" @onclick="() => InteropDummy3.Walk(JSRuntime)">Walk</button>
-<button class="btn btn-primary" @onclick="() => InteropDummy3.Run(JSRuntime)">Run</button>
-<br /><br />
-<div>
-    Camera Alpha:
-    <input type="range" min="-360" max="360" step="1" @bind="CameraA" @bind:event="oninput" @onchange="OnChangeSlider" />
-</div>
-<div>
-    Camera Beta:
-    <input type="range" min="-360" max="360" step="1" @bind="CameraB" @bind:event="oninput" @onchange="OnChangeSlider" />
-</div>
-<div>
-    Camera Radius:
-    <input type="range" min="-360" max="360" step="1" @bind="CameraR" @bind:event="oninput" @onchange="OnChangeSlider" />
-</div>
-
-@code {
-    private ElementReference CanvasElement;
-
-    private int CameraA = 200;
-    private int CameraB = 200;
-    private int CameraR = 200;
-
-    protected override async Task
-        OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await InteropDummy3.ShowBabylon(JSRuntime, CanvasElement);
-        }
-    }
-
-    private void OnChangeSlider(ChangeEventArgs e)
-    {
-        InteropDummy3.Camera(JSRuntime, CameraA, CameraB, CameraR);
-    }
-}
+﻿@page "/"
+<h3>Declarative Babylon</h3>
+<BabylonCanvas ID="babylon5" PrepareStage="prepareStage" PrepareScene="prepareScene" style="width: 80%;height: 500px;">
+    <AnimationButton ElementID="babylon5" Animation="Idle" />
+    <AnimationButton ElementID="babylon5" Animation="Walk" />
+    <AnimationButton ElementID="babylon5" Animation="Run" />
+    <LoadMeshButton ElementID="babylon5" FileName="dummy3.babylon.json" MeshName="YBot" />
+    <RemoveMeshButton ElementID="babylon5" MeshName="YBot" />
+</BabylonCanvas>
+<pre><code>@($@"<BabylonCanvas PrepareStage=""prepareStage"" PrepareScene=""prepareScene"" Context=""ID"">
+ <AnimationButton ElementID=""@ID"" Animation=""Idle"" />
+ <AnimationButton ElementID=""@ID"" Animation=""Walk"" />
+ <AnimationButton ElementID=""@ID"" Animation=""Run"" />
+ <LoadMeshButton ElementID=""babylon5"" FileName=""dummy3.babylon.json"" MeshName=""YBot"" />
+ <RemoveMeshButton ElementID=""@ID"" MeshName=""YBot"" />
+</BabylonCanvas>
+")</code></pre>
