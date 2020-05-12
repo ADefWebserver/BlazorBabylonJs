@@ -1,0 +1,13 @@
+﻿@code
+{
+		[Parameter] public string MethodName { get; set; } = "loadMesh";
+		[Parameter] public string ElementID { get; set; }
+		[Parameter] public string FileName { get; set; }
+		[Parameter] public string MeshName { get; set; }
+		[Parameter(CaptureUnmatchedValues = true)]
+		public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; } 
+
+		private string ClickAction
+			=> $"{MethodName}('{ElementID}','{FileName}','{MeshName}')";
+}
+<button class="btn btn-primary" onclick=@($"{ClickAction}") @attributes="AdditionalAttributes">Load Mesh - @MeshName</button>

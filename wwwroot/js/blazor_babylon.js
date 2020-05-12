@@ -53,39 +53,51 @@ function prepareScene(e, mainColor) {
 
     engine.displayLoadingUI();
 
-    // Shadows
-    var shadowGenerator = new Babylon.ShadowGenerator(1024, lights[1]);
-    shadowGenerator.useBlurExponentialShadowMap = true;
-    shadowGenerator.blurKernel = 32;
+    window.stages = window.stages || [];
+    window.stages[e.target.id] = e;
+}
 
-    Babylon.SceneLoader.ImportMesh("", "./scenes/", "dummy3.babylon.json", scene, function (newMeshes, particleSystems, skeletons) {
+function loadMesh(id, file, name, mainColor) {
+    const stages = window.stages;
+    if (!stages) return;
+    const stage = stages[id];
+
+    const scene = stage.detail.scene;
+    const Babylon = stage.detail.babylon;
+    const lights = stage.detail.lights;
+    const engine = stage.detail.engine;
+
+    Babylon.SceneLoader.ImportMesh("", "./scenes/", file, scene, function (newMeshes, particleSystems, skeletons) {
         var skeleton = skeletons[0];
-
+        // Shadows
+        var shadowGenerator = new Babylon.ShadowGenerator(1024, lights[1]);
+        shadowGenerator.useBlurExponentialShadowMap = true;
+        shadowGenerator.blurKernel = 32;
         shadowGenerator.addShadowCaster(scene.meshes[0], true);
         for (var index = 0; index < newMeshes.length; index++) {
-            newMeshes[index].receiveShadows = false;;
+            newMeshes[index].receiveShadows = false;
+            ;
         }
-
         var helper = scene.createDefaultEnvironment({
             enableGroundShadow: true
         });
         helper.setMainColor(mainColor ?? Babylon.Color3.Gray());
         helper.ground.position.y += 0.01;
-
-        var idleRange = skeleton.getAnimationRange("YBot_Idle");
-        var walkRange = skeleton.getAnimationRange("YBot_Walk");
-        var runRange = skeleton.getAnimationRange("YBot_Run");
+        var idleRange = skeleton.getAnimationRange(`${name}_Idle`);
+        var walkRange = skeleton.getAnimationRange(`${name}_Walk`);
+        var runRange = skeleton.getAnimationRange(`${name}_Run`);
         thisAnim = scene.beginWeightedAnimation(skeleton, idleRange.from, idleRange.to, 1.0, true);
         walkAnim = scene.beginWeightedAnimation(skeleton, walkRange.from, walkRange.to, 0, true);
         runAnim = scene.beginWeightedAnimation(skeleton, runRange.from, runRange.to, 0, true);
+
         var params = [
             { name: "Idle", anim: thisAnim },
             { name: "Walk", anim: walkAnim },
             { name: "Run", anim: runAnim }
-        ]
+        ];
 
         window.anims = window.anims || [];
-        window.anims[e.target.id] = params;
+        window.anims[id] = params;
 
         engine.hideLoadingUI();
 
@@ -114,4 +126,16 @@ function setAnimation(id, name, weight) {
                 otherAnim.weight = 0.0;
         }
     });
+}
+
+function removeMesh(id, name) {
+    const stages = window.stages;
+    if (!stages) return;
+    const scene = stages[id].detail.scene;
+    if (!scene) return;
+    for (var mesh of scene.meshes) {
+        if (mesh.name === name) {
+            mesh.dispose();
+        }
+    }
 }
