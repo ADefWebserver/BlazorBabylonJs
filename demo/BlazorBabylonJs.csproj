@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\BabylonBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="wwwroot\scenes\dummy3.babylon.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,0 +1,22 @@
+﻿@page "/scripted"
+@using BabylonBlazor.Components
+<h3>Scripted Babylon</h3>
+
+<Canvas @ref="canvas" 
+        ID="scripted-sample" 
+        class="w-75 h-50 d-block" 
+        />
+
+<div>
+    <button class="btn btn-primary" @onclick="AddSphere">Add another sphere</button>
+</div>
+
+@if (scene is object)
+{ 
+<div>
+    There are @scene.Cameras.Count @(nameof(Camera))s and
+    @scene.Lights.Count @(nameof(Light))s and 
+    @scene.Primitives.Count @(nameof(Primitive))s in the scene.
+</div>
+
+}
