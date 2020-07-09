@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBabylonJs", "BlazorBabylonJs.csproj", "{54ED4F99-8192-4377-AE96-5A3EE92C57E3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabylonBlazor", "..\BlazorBabylonJSInterop\BabylonBlazor.csproj", "{2E5BAD0D-F10E-402B-8623-8D5B54424730}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{54ED4F99-8192-4377-AE96-5A3EE92C57E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54ED4F99-8192-4377-AE96-5A3EE92C57E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54ED4F99-8192-4377-AE96-5A3EE92C57E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E5BAD0D-F10E-402B-8623-8D5B54424730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5BAD0D-F10E-402B-8623-8D5B54424730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5BAD0D-F10E-402B-8623-8D5B54424730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5BAD0D-F10E-402B-8623-8D5B54424730}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
