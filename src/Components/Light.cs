@@ -1,10 +1,12 @@
 ﻿using BabylonBlazor.Extensions;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
 
 namespace BabylonBlazor.Components
 {
+	[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public class Light
 	{
 		public string Name { get; }
@@ -13,19 +15,20 @@ namespace BabylonBlazor.Components
 		public Vector3 Specular { get; set; }
 		public Scene Scene { get; }
 		public LightTypes LightType { get; }
-		public Light(Scene scene, LightTypes type, string name, Vector3? direction = null, double intensity = 0.6, Vector3? specular = null)
+		public Light(Scene scene, LightTypes type, string name, Vector3? direction = null, double intensity = 0.3, Vector3? specular = null)
 		{
 			Scene = scene ?? throw new ArgumentNullException(nameof(scene));
 			LightType = type;
 			Name = name;
 			Direction = direction ?? new Vector3(0, 1, 0);
 			Intensity = intensity;
-			Specular = specular ?? new Vector3(255, 255, 255);
+			Specular = specular ?? new Vector3(1, 1, 1);
 		}
 		public async Task Build()
 		{
 			await Scene.JSRuntime.CreateLight(Scene.Engine.Canvas.ID, LightType, Name, Direction, Intensity, Specular);
 		}
+		string GetDebuggerDisplay() => $"{nameof(LightType)} : {LightType}, {nameof(Name)} : {Name}";
 	}
 	public enum LightTypes
 	{

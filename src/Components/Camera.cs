@@ -1,11 +1,13 @@
 ﻿using BabylonBlazor.Extensions;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
 
 namespace BabylonBlazor.Components
 {
-	public abstract class Camera
+	[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+	public class Camera
 	{
 		public string Name { get; }
 		public Vector3 Direction { get; set; }
@@ -22,6 +24,8 @@ namespace BabylonBlazor.Components
 		{
 			await Scene.JSRuntime.CreateCamera(Scene.Engine.Canvas.ID, Name);
 		}
+
+		string GetDebuggerDisplay() => $"{nameof(CameraType)} : {CameraType}, {nameof(Name)} : {Name}";
 	}
 	public enum CameraTypes
 	{

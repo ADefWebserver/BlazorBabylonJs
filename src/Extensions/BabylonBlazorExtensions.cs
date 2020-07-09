@@ -62,7 +62,8 @@ namespace BabylonBlazor.Extensions
 			PrimitiveTypes PrimitiveType,
 			string Name,
 			object options,
-			Vector3 Position
+			Vector3 Position,
+			Vector3? Specular=null
 			)
 		{
 			//TODO: Enums suck here - fix it
@@ -71,7 +72,8 @@ namespace BabylonBlazor.Extensions
 				Enum.GetName(typeof(PrimitiveTypes), PrimitiveType),
 				Name,
 				options,
-				new {Position.X,Position.Y,Position.Z}
+				new {Position.X,Position.Y,Position.Z},
+				Specular.HasValue ? new { R = Specular.Value.X, G = Specular.Value.Y, B = Specular.Value.Z } : null
 				);
 		}
 	}

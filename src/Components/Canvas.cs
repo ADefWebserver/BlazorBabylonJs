@@ -1,16 +1,14 @@
-﻿using BabylonBlazor.Interfaces;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace BabylonBlazor.Components
 {
 	[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public class Canvas : ComponentBase, IBBFragment
+	public class Canvas : ComponentBase
 	{
 		[Parameter]
 		public string ID { get; set; }

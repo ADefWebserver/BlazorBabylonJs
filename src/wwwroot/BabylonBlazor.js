@@ -81,7 +81,7 @@ window.BabylonBlazor = {
         }
         return false
     },
-    CreatePrimitive: function (canvasID, primitiveType, name, options, position) {
+    CreatePrimitive: function (canvasID, primitiveType, name, options, position, specular) {
         var scene = this.scenes[canvasID]
         if (scene) {
             switch (primitiveType) {
@@ -102,6 +102,11 @@ window.BabylonBlazor = {
                     mesh.position.x = position.x
                     mesh.position.y = position.y
                     mesh.position.z = position.z
+                }
+                if (specular) {
+                    var material = new BABYLON.StandardMaterial(`texture-${name}`, scene);
+                    material.diffuseColor = new BABYLON.Color3(specular.r, specular.g, specular.b)
+                    mesh.material = material;
                 }
                 return true
             }

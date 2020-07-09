@@ -1,9 +1,7 @@
 ﻿using BabylonBlazor.Extensions;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace BabylonBlazor.Components
@@ -11,6 +9,7 @@ namespace BabylonBlazor.Components
 	/// <summary>
 	/// C# Wrapper for BabylonJS 
 	/// </summary>
+	[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public class Engine
 	{
 		internal IJSRuntime JSRuntime { get; }
@@ -48,6 +47,6 @@ namespace BabylonBlazor.Components
 
 			return null;
 		}
-
+		string GetDebuggerDisplay() => $"{GetType().Name} : {nameof(Canvas)} = {Canvas.ID}";
 	}
 }
